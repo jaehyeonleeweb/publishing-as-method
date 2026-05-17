@@ -27,6 +27,7 @@
       --ink: black;
       --text-size: 16px;
       --meta-size: 13px;
+      --line-height: 1.8;
       --paragraph-width: 640px;
     }
 
@@ -60,7 +61,7 @@
       color: var(--ink);
       font-size: var(--meta-size);
       font-weight: 400;
-      line-height: 1.5;
+      line-height: var(--line-height);
     }
 
     article {
@@ -71,7 +72,7 @@
     h1 {
       margin: 0 0 6px;
       font-size: var(--text-size);
-      line-height: 1.5;
+      line-height: var(--line-height);
       font-weight: 700;
       word-break: keep-all;
     }
@@ -80,14 +81,14 @@
       margin: 0;
       color: var(--ink);
       font-size: var(--meta-size);
-      line-height: 1.5;
+      line-height: var(--line-height);
     }
 
     h2 {
       margin: 36px 0 12px;
       color: var(--ink);
       font-size: var(--text-size);
-      line-height: 1.5;
+      line-height: var(--line-height);
       font-weight: 700;
       word-break: keep-all;
     }
@@ -95,7 +96,7 @@
     p {
       margin: 0 0 1.15em;
       font-size: var(--text-size);
-      line-height: 1.5;
+      line-height: var(--line-height);
       font-weight: 400;
       word-break: keep-all;
       overflow-wrap: break-word;
@@ -110,7 +111,7 @@
     blockquote p {
       margin: 0;
       font-size: var(--text-size);
-      line-height: 1.5;
+      line-height: var(--line-height);
       font-weight: 700;
     }
 
