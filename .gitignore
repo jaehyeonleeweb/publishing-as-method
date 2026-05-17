@@ -1,0 +1,10 @@
+*
+!.gitignore
+!index.html
+!article.md
+!assets/
+assets/*
+!assets/fonts/
+assets/fonts/*
+!assets/fonts/*.otf
+assets/fonts/._*

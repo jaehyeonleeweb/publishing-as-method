@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>아시아 출판 실천: 새로운 보편성을 향하여</title>
+  <style>
+    @font-face {
+      font-family: "JH Web Duo";
+      src: url("./assets/fonts/JHWebDuo-Regular.otf") format("opentype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "JH Web Duo";
+      src: url("./assets/fonts/JHWebDuo-Bold.otf") format("opentype");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      color-scheme: light;
+      --paper: white;
+      --ink: black;
+      --text-size: 16px;
+      --meta-size: 13px;
+      --paragraph-width: 640px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "JH Web Duo", ui-serif, serif;
+      letter-spacing: 0;
+    }
+
+    .page {
+      width: 100%;
+      margin: 0;
+      min-height: 100vh;
+      background: var(--paper);
+    }
+
+    header {
+      width: var(--paragraph-width);
+      margin: 0;
+      padding: 16px 0 0 16px;
+    }
+
+    .eyebrow {
+      margin: 0 0 6px;
+      color: var(--ink);
+      font-size: var(--meta-size);
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    article {
+      width: var(--paragraph-width);
+      padding: 24px 0 64px 16px;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: var(--text-size);
+      line-height: 1.5;
+      font-weight: 700;
+      word-break: keep-all;
+    }
+
+    .author {
+      margin: 0;
+      color: var(--ink);
+      font-size: var(--meta-size);
+      line-height: 1.5;
+    }
+
+    h2 {
+      margin: 36px 0 12px;
+      color: var(--ink);
+      font-size: var(--text-size);
+      line-height: 1.5;
+      font-weight: 700;
+      word-break: keep-all;
+    }
+
+    p {
+      margin: 0 0 1.15em;
+      font-size: var(--text-size);
+      line-height: 1.5;
+      font-weight: 400;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    blockquote {
+      margin: 0 0 24px;
+      padding: 0;
+      color: var(--ink);
+    }
+
+    blockquote p {
+      margin: 0;
+      font-size: var(--text-size);
+      line-height: 1.5;
+      font-weight: 700;
+    }
+
+    .header-main,
+    .header-meta {
+      min-width: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="header-main">
+        <h1>아시아 출판 실천: 새로운 보편성을 향하여</h1>
+      </div>
+      <div class="header-meta">
+        <p class="author">임경용</p>
+      </div>
+    </header>
+    <article id="content"></article>
+  </div>
+
+  <script>
+    const content = document.querySelector("#content");
+
+    function escapeHtml(text) {
+      return text
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;");
+    }
+
+    function render(markdown) {
+      const blocks = markdown
+        .replace(/^# .+\n+\S+\n+/, "")
+        .trim()
+        .split(/\n{2,}/);
+
+      content.innerHTML = blocks.map((block) => {
+        if (block.startsWith("## ")) {
+          return `<h2>${escapeHtml(block.slice(3))}</h2>`;
+        }
+
+        if (block.startsWith("> ")) {
+          return `<blockquote><p>${escapeHtml(block.replace(/^> /gm, ""))}</p></blockquote>`;
+        }
+
+        return `<p>${escapeHtml(block).replace(/\n/g, " ")}</p>`;
+      }).join("");
+    }
+
+    fetch("./article.md")
+      .then((response) => response.text())
+      .then(render)
+      .catch(() => {
+        content.innerHTML = "<p>article.md를 불러오지 못했습니다.</p>";
+      });
+  </script>
+</body>
+</html>
